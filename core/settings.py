@@ -18,6 +18,7 @@ SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 # load production server from .env
+# ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.ekummat.com','ekummat.com',config('SERVER', default='127.0.0.1')]
 
 # Application definition
@@ -30,15 +31,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.home',  # Enable the inner home (home)
+    'apps.api',  # API app
     #3rd Party App
     'tinymce',
     'django_social_share',
     'smart_selects',
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,6 +96,7 @@ DATABASES = {
 'USER': 'awaheedp',
 'PASSWORD': 'cypna@123',
 'HOST': 'awaheedp.mysql.pythonanywhere-services.com',
+'PORT': '3306',
 }
 }
 
@@ -143,3 +149,30 @@ MEDIA_ROOT = os.path.join(CORE_DIR, 'media')
 MEDIA_URL = '/media/'
 #############################################################
 #############################################################
+
+# Django REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'apps.api.pagination.CustomPageNumberPagination',
+    'PAGE_SIZE': 20,
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+}
+
+# CORS Configuration for React Native
+CORS_ALLOW_ALL_ORIGINS = True  # For development - restrict in production
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]

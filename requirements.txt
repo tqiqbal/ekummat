@@ -1,4 +1,4 @@
-asgiref==3.4.1
+asgiref
 autopep8==1.5.7
 dj-database-url==0.5.0
 Django==3.2.6
@@ -16,3 +16,6 @@ django-tinymce==3.4.0
 django-social-share==2.2.1
 django-smart-selects==1.5.9
 openpyxl==3.0.9
+djangorestframework
+django-cors-headers
+django-filter
