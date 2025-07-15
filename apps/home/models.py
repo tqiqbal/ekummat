@@ -12,6 +12,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+from django.utils import timezone
 
 
 # from .views import excel_upload_operations
@@ -46,6 +47,9 @@ class Book(models.Model):
     volumes = models.TextField(blank=True,null=True)
     description = models.TextField(blank=True,null=True)
     category = models.CharField(choices=PDFBOOK_CATEGORY,default='hadith',null=False,blank=False,max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.title
 
@@ -56,6 +60,8 @@ class BookPDF(models.Model):
     total_pages = models.TextField(blank=True,null=True)
     file_url = models.FileField(upload_to=BookPDF_upload_location, null = True, blank = True)
     external_file_url = models.TextField(blank=True,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.title
@@ -80,6 +86,8 @@ class HadithBook(models.Model):
     title = models.CharField(max_length=100,null=False,blank=False)
     description = models.TextField(null=True,blank=True)
     slug = models.SlugField(unique=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -95,6 +103,8 @@ class HadithBookMainChapter(models.Model):
     chapter_no = models.IntegerField(max_length=3)
     english_name = models.CharField(max_length=200)
     arabic_name = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.english_name
@@ -107,6 +117,8 @@ class HadithBookMainChapter(models.Model):
 class HadithBookSubChapter(models.Model):
     hadith_book_main_chapter = models.ForeignKey(HadithBookMainChapter,on_delete=models.SET_NULL,null=True)
     sub_chapter_name = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.hadith_book_main_chapter} - {self.sub_chapter_name}"
@@ -132,6 +144,8 @@ class HadithBookContent(models.Model):
     hindi_content = models.TextField(null=True,blank=True)
     reference_field = models.TextField(null=True,blank=True)
     grade = models.CharField(choices=HADITHGRADE,default="Sahih", max_length=50,null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.hadith_book_sub_chapter}"
