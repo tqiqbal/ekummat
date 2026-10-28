@@ -27,14 +27,18 @@ After merging the pull request, open a Bash console for the existing project:
 ```bash
 cd /home/awaheedp/ekummat
 git status --short
-git pull --ff-only origin main
+git fetch origin
+git merge --no-edit origin/main
 workon ekenv
 python manage.py check
+python manage.py collectstatic --noinput
 ```
 
 Keep any existing local changes. If Git reports a conflict or Django reports an
-error, resolve it before reloading the site. This article change needs no database
-migration or new Python packages.
+error, resolve it before reloading the site. Merging preserves the production
+settings and migration commits that currently exist only on PythonAnywhere.
+Article and design changes need no database migration or new Python packages.
+Collecting static files publishes the shared stylesheet, scripts, icons, and fonts.
 
 On the **Web** tab, select **www.ekumat.com** and click **Reload**. Check:
 

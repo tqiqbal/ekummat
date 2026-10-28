@@ -1,37 +1,19 @@
 {% extends 'frontend/base.html' %}
-
-{% block title %} Dashboard {% endblock title %}
-
-<!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
+{% block title %}{{ chapter.name_simple }} · Quran{% endblock %}
 {% block content %}
-
-<section class="my-5 py-5">
-
-    <div class="container mt-sm-5 mt-3">
-       <!-- 1A Section -->
-       <div class="row">
-          <div class="col">
-             <div class="mb-4 ">
-                <nav aria-label="breadcrumb">
-                   <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Quran</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">{{chapter.name_simple}} - <span class="">{{chapter.name_arabic}}</span></li>
-                   </ol>
-                </nav>
-                <!-- <h3>Chapter - Section 1</h3> -->
-             </div>
-          </div>
-       </div>
-       <!-- 1A Section 1A -->
-
-       <span style="font-size: 30px !important; color: black; ">{{quran.chapter_content|safe}}</span>
-
-    </div>
-    </div>
- </section>
-
-{% endblock content%}
-
-{% block javascripts %}{% endblock javascripts %}
+<div class="reader-page" data-reader>
+  <div class="site-shell">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'quran_list_chapter' %}#quran">The Quran</a><span aria-hidden="true">/</span><span aria-current="page">{{ chapter.name_simple }}</span></nav>
+    <header class="reader-header"><p class="eyebrow">SURAH {{ chapter.id }}{% if chapter.revelation_place %} · {% if chapter.revelation_place == 'makkah' %}MECCAN{% else %}MEDINAN{% endif %}{% endif %}</p><p class="reader-arabic-title" lang="ar" dir="rtl">{{ chapter.name_arabic }}</p><h1>{{ chapter.name_simple }}</h1><p>{% if chapter.translated_name.name %}{{ chapter.translated_name.name }} <span aria-hidden="true">·</span> {% endif %}{{ chapter.verses_count }} Ayahs <span aria-hidden="true">·</span> Roman Urdu Tafseer</p></header>
+    {% include 'frontend/components/reader_toolbar.html' %}
+  </div>
+  <div class="reading-surface">
+    <div class="reading-content quran-content">{% if quran.chapter_content %}{{ quran.chapter_content|safe }}{% else %}<div class="empty-state"><h2>This chapter’s Tafseer is not available yet.</h2><p>Please explore another Surah or browse the Quran PDF collection.</p><a class="button button-primary" href="{% url 'pdf_quran_list' %}">Quran PDF collection</a></div>{% endif %}</div>
+  </div>
+  <nav class="chapter-pagination site-shell" aria-label="Surah navigation">
+    {% if chapter.id > 1 %}<a href="{% url 'quran_get_chapter' chapter.id|add:'-1' %}"><span class="eyebrow">← PREVIOUS SURAH</span><strong>Surah {{ chapter.id|add:'-1' }}</strong></a>{% else %}<span></span>{% endif %}
+    <a class="pagination-index" href="{% url 'quran_list_chapter' %}#quran">All Surahs</a>
+    {% if chapter.id < 114 %}<a class="pagination-next" href="{% url 'quran_get_chapter' chapter.id|add:'1' %}"><span class="eyebrow">NEXT SURAH →</span><strong>Surah {{ chapter.id|add:'1' }}</strong></a>{% else %}<span></span>{% endif %}
+  </nav>
+</div>
+{% endblock %}

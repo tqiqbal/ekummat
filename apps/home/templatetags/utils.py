@@ -4,6 +4,7 @@ register = template.Library()
 
 @register.filter(name='file_url')
 def file_url(obj):
-    """Removes all values of arg from the given string"""
-    url = obj.external_file_url if obj.external_file_url else obj.file_url
-    return url
+    """Return the external link or the storage URL of an uploaded PDF."""
+    if obj.external_file_url:
+        return obj.external_file_url
+    return obj.file_url.url if obj.file_url else ''

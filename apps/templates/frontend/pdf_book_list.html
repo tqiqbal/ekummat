@@ -1,122 +1,15 @@
 {% extends 'frontend/base.html' %}
-
-{% block title %} Dashboard {% endblock title %}
-
-<!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
+{% load utils %}
+{% block title %}{% if request.path == '/pdf_dua_list' %}Dua collection{% elif request.path == '/pdf_quran_list' %}Quran PDF library{% else %}Hadith PDF library{% endif %}{% endblock %}
 {% block content %}
-<section class="my-5 pt-5">
-   <div class="container mt-sm-5 mt-3">
-      <div class="row">
-         <div class="col">
-            <div class="mb-0">
-               <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb">
-                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                     <li class="breadcrumb-item active" aria-current="page">PDF Books</li>
-                  </ol>
-               </nav>
-            </div>
-         </div>
-      </div>
-   </div>
-   </div>
-</section>
-
-<section class="pt-sm-8 pb-5 position-relative bg-gradient-dark">
-   <div class="position-absolute w-100 z-inde-1 top-0 mt-n2">
-      <svg width="100%" viewBox="0 -2 1920 157" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-         <title>wave-down</title>
-         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g fill="#FFFFFF" fill-rule="nonzero">
-               <g id="wave-down">
-                  <path d="M0,60.8320331 C299.333333,115.127115 618.333333,111.165365 959,47.8320321 C1299.66667,-15.5013009 1620.66667,-15.2062179 1920,47.8320331 L1920,156.389409 L0,156.389409 L0,60.8320331 Z" id="Path-Copy-2" transform="translate(960.000000, 78.416017) rotate(180.000000) translate(-960.000000, -78.416017) "></path>
-               </g>
-            </g>
-         </g>
-      </svg>
-   </div>
-   <div class="container">
-      <div class="row" id="pdf">
-         <div class="col-md-8 text-start mb-5 mt-5">
-         <h3 class="text-white z-index-1 position-relative">All Download PDF</h3>
-          {{book_list.category}}
-          {% if category == 'dua' %}
-          <p class="text-white opacity-10 mb-0">Allah her pukarne wale ki Dua qubool karta hai (Surah 2, Ayat 186). Aur jab Dua ke alfaz Quran and ahadees se ho to uske mayar ka Kya hi kehna. Is link mein 2 pdf files hai Jo aap download bhi kar sakte hai.</p>
-          <p class="text-white opacity-10 mb-0">1. Quran mein Jo duae aai hai  wo Translation ke sath hai </p>
-            <p class="text-white opacity-10 mb-0">2. Rasoolullah (SAW) ki Duae  translation ke sath</p>
-         {% else %}
-         <p class="text-white opacity-8 mb-0">Huge collection of  most popular Ahadis Books in PDF download</p>
-
-         {% endif %}
-         </div>
-      </div>
-      <div class="row">
-         {% load utils %}
-
-{% for book in book_list %}
-         <div class="col-lg-12 col-12 mt-4">
-            <div class="card card-profile overflow-hidden z-index-2">
-               <div class="row">
-               <div class="col-lg-12 col-md-12 col-12  my-auto">
-                  <div class="card-body">
-                     <h4 class="mb-0">{{book.title}}</h4>
-                     <h6 class="text-info">Total {{book.volumes}} Volumes</h6>
-                     <!-- <p class="mb-0">Artist is a term applied to a person who engages in an activity deemed to be an art.</p> -->
-                     
-                     <ul class="list-inline text-lg ">
-                        {% for bk in book.bookpdf_set.all %}
-                        
-                           <li class="list-inline-item"> <i class="fa fa-file-pdf-o text-primary text-gradient" aria-hidden="true"></i> <a href="{{bk|file_url}}" target="_blank">  {{bk.title}}</a></li> |
-                           {% if forloop.counter == 4 %}
-                              <hr class="dark my-2 mx-4">
-                           {% endif %}
-                        {% endfor %} 
-            
-                     </ul>
-
-                  </div>
-               </div>
-               </div>
-            </div>
-         </div>
-{% endfor %}
-
-
-
-      </div>
-
-   </div>
-   <div class="position-absolute w-100 bottom-0 mn-n1">
-      <svg width="100%" viewBox="0 -1 1920 166" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-         <title>wave-up</title>
-         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g transform="translate(0.000000, 5.000000)" fill="#FFFFFF" fill-rule="nonzero">
-               <g id="wave-up" transform="translate(0.000000, -5.000000)">
-                  <path d="M0,70 C298.666667,105.333333 618.666667,95 960,39 C1301.33333,-17 1621.33333,-11.3333333 1920,56 L1920,165 L0,165 L0,70 Z" fill="#f8f9fa"></path>
-               </g>
-            </g>
-         </g>
-      </svg>
-   </div>
-</section>
-{% endblock content%}
-
-{% block javascripts %}
-
-<script>
-var hash = '#pdf';
-$('html, body').animate({
-      
-        scrollTop: $(hash).offset().top
-      }, 800, function(){
-   
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
-      
-   // $("html,body").scrollTop(105);
-</script>
-
-{% endblock javascripts %}
+<div class="collection-page site-shell">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'quran_list_chapter' %}">Home</a><span aria-hidden="true">/</span><span aria-current="page">{% if request.path == '/pdf_dua_list' %}Dua collection{% else %}PDF library{% endif %}</span></nav>
+  <header class="collection-header"><p class="eyebrow">THE EKUMMAT LIBRARY</p><h1>{% if request.path == '/pdf_dua_list' %}Words for the heart.{% else %}Take the learning with you.{% endif %}</h1><p>{% if request.path == '/pdf_dua_list' %}Duas from the Quran and Sunnah, with translations to bring the meaning closer.{% else %}Explore our collection of {% if request.path == '/pdf_quran_list' %}Quran{% else %}Hadith{% endif %} books and PDFs. Read at your own pace, wherever you are.{% endif %}</p></header>
+  <nav class="library-tabs" aria-label="Library categories"><a class="library-tab{% if request.path == '/pdf_quran_list' %} current{% endif %}" href="{% url 'pdf_quran_list' %}"{% if request.path == '/pdf_quran_list' %} aria-current="page"{% endif %}>{% include 'frontend/components/icon.html' with name='book' %} Quran</a><a class="library-tab{% if request.path == '/pdf_hadith_list' %} current{% endif %}" href="{% url 'pdf_hadith_list' %}"{% if request.path == '/pdf_hadith_list' %} aria-current="page"{% endif %}>{% include 'frontend/components/icon.html' with name='file' %} Hadith</a><a class="library-tab{% if request.path == '/pdf_dua_list' %} current{% endif %}" href="{% url 'pdf_dua_list' %}"{% if request.path == '/pdf_dua_list' %} aria-current="page"{% endif %}>{% include 'frontend/components/icon.html' with name='heart' %} Dua</a></nav>
+  {% if category == 'dua' %}<div class="library-description"><p>Allah her pukarne wale ki Dua qubool karta hai (Surah 2, Ayat 186). Aur jab Dua ke alfaz Quran and ahadees se ho to uske mayar ka Kya hi kehna. Is link mein 2 pdf files hai Jo aap download bhi kar sakte hai.</p><p>1. Quran mein Jo duae aai hai wo Translation ke sath hai<br>2. Rasoolullah (SAW) ki Duae translation ke sath</p></div>{% endif %}
+  <p class="collection-count">{{ book_list|length }} {% if book_list|length == 1 %}book{% else %}books{% endif %} in this collection</p>
+  <div class="library-grid">
+    {% for book in book_list %}<article class="book-card"><header class="book-heading"><span class="book-emblem">{% include 'frontend/components/icon.html' with name='book' %}</span><div><h2>{{ book.title }}</h2>{% if book.volumes %}<p>{{ book.volumes }} volumes</p>{% endif %}</div></header><ul class="pdf-links">{% for bk in book.bookpdf_set.all %}{% with pdf_url=bk|file_url %}{% if pdf_url %}<li><a href="{{ pdf_url }}" target="_blank" rel="noopener noreferrer">{% include 'frontend/components/icon.html' with name='download' %} {{ bk.title }}<span class="sr-only"> (opens PDF in a new tab)</span></a></li>{% endif %}{% endwith %}{% empty %}<li>No PDFs are available for this book yet.</li>{% endfor %}</ul></article>{% empty %}<div class="empty-state"><h2>This collection is being prepared.</h2><p>Please explore another library category.</p></div>{% endfor %}
+  </div>
+</div>
+{% endblock %}
