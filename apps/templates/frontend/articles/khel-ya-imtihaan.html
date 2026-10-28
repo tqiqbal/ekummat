@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khel Ya Imtihaan | Ekummat</title>
+<meta name="description" content="Zindagi, maut, aur unka maqsad — Quran aur Hadith ki roshni mein ek Roman Urdu reflection.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F4F3F8;
+    --bg-raised: #E8E5F1;
+    --panel: #DEDAEC;
+    --panel-line: rgba(28,24,46,0.14);
+    --ink: #1D1A2E;
+    --ink-soft: #4A4560;
+    --ink-faint: #7A748F;
+    --accent: #4A3F8C;
+    --accent-strong: #352C6B;
+    --ember: #A6791F;
+    --line: rgba(28,24,46,0.14);
+    --line-strong: rgba(28,24,46,0.28);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #0E0B1A;
+      --bg-raised: #1A1530;
+      --panel: #1A1530;
+      --panel-line: rgba(237,234,247,0.14);
+      --ink: #EDE9F5;
+      --ink-soft: #C3BCD9;
+      --ink-faint: #8B84A3;
+      --accent: #8C7FD9;
+      --accent-strong: #B0A6EA;
+      --ember: #D9A843;
+      --line: rgba(237,234,247,0.14);
+      --line-strong: rgba(237,234,247,0.26);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #0E0B1A;
+    --bg-raised: #1A1530;
+    --panel: #1A1530;
+    --panel-line: rgba(237,234,247,0.14);
+    --ink: #EDE9F5;
+    --ink-soft: #C3BCD9;
+    --ink-faint: #8B84A3;
+    --accent: #8C7FD9;
+    --accent-strong: #B0A6EA;
+    --ember: #D9A843;
+    --line: rgba(237,234,247,0.14);
+    --line-strong: rgba(237,234,247,0.26);
+  }
+  /* printed output always uses the light, ink-light palette regardless of
+     screen/dark-mode preference, so the PDF never carries heavy dark fills */
+  @media print{
+    :root{
+      --bg: #F4F3F8;
+      --bg-raised: #E8E5F1;
+      --panel: #DEDAEC;
+      --panel-line: rgba(28,24,46,0.14);
+      --ink: #1D1A2E;
+      --ink-soft: #4A4560;
+      --ink-faint: #7A748F;
+      --accent: #4A3F8C;
+      --accent-strong: #352C6B;
+      --ember: #A6791F;
+      --line: rgba(28,24,46,0.14);
+      --line-strong: rgba(28,24,46,0.28);
+    }
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Literata", Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--accent); color: #fff; }
+
+  .wrap{ max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+  .col{ max-width: 640px; margin: 0 auto; }
+
+  h1, h2, h3{ font-family: "Fraunces", Georgia, serif; text-wrap: balance; font-weight: 600; }
+
+  a{ color: var(--accent); }
+
+  .eyebrow{
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow .ar{
+    font-family: "Amiri", serif;
+    font-size: 16px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--accent-strong);
+  }
+  .eyebrow::before{
+    content:"";
+    width: 22px; height: 1px;
+    background: var(--accent);
+    display:inline-block;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background: var(--panel);
+    color: var(--ink);
+    padding: 88px 24px 76px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--panel-line);
+  }
+  .hero .wrap{ position: relative; z-index: 2; }
+  .hero-rays{
+    position:absolute; inset:0; z-index:1;
+    opacity: 0.5;
+    background:
+      repeating-radial-gradient(circle at 50% -10%,
+        rgba(74,63,140,0.10) 0px 2px,
+        transparent 2px 30px);
+    mask-image: radial-gradient(65% 60% at 50% -5%, black, transparent 72%);
+  }
+  .hero-eyebrow{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  .hero h1{
+    font-size: clamp(40px, 7vw, 74px);
+    line-height: 1.04;
+    margin: 0 0 26px;
+    color: var(--ink);
+    max-width: 11ch;
+  }
+  .hero h1 em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ember);
+  }
+  .hero p.lede{
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 48ch;
+    margin: 0;
+  }
+  .hero-meta{
+    margin-top: 46px;
+    display:flex; gap: 28px; flex-wrap: wrap;
+    font-family:"IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.03em;
+    border-top: 1px solid var(--panel-line);
+    padding-top: 18px;
+  }
+
+  /* ---------- Body sections ---------- */
+  section.piece{ padding: 64px 24px; }
+  section.piece + section.piece{ border-top: 1px solid var(--line); }
+
+  .scene{
+    background: var(--panel);
+    color: var(--ink);
+    border-top: 1px solid var(--panel-line);
+    border-bottom: 1px solid var(--panel-line);
+  }
+  .scene .eyebrow{ color: var(--accent); }
+  .scene .eyebrow::before{ background: var(--accent); }
+  .scene p{ color: var(--ink-soft); }
+  .scene strong{ color: var(--ink); }
+
+  p{ margin: 0 0 20px; color: var(--ink); }
+  .col > p:last-child{ margin-bottom:0; }
+
+  h2.title{
+    font-size: clamp(26px, 3.6vw, 34px);
+    margin: 14px 0 22px;
+    line-height: 1.15;
+  }
+
+  .lead-line{
+    font-size: 20px;
+    line-height: 1.55;
+    font-weight: 500;
+  }
+
+  strong.hl{ color: var(--accent-strong); font-weight: 600; }
+
+  /* tablet / citation block */
+  .tablet{
+    margin: 30px 0;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    padding: 24px 26px;
+    background: var(--bg-raised);
+    position: relative;
+  }
+  .tablet::before, .tablet::after{
+    content:"";
+    position:absolute;
+    width:8px; height:8px;
+    border: 1px solid var(--accent);
+  }
+  .tablet::before{ top:-1px; left:-1px; border-width: 1px 0 0 1px; }
+  .tablet::after{ bottom:-1px; right:-1px; border-width: 0 1px 1px 0; }
+  .tablet .src{
+    font-family:"IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display:block;
+  }
+  .tablet blockquote{
+    margin: 0;
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .tablet .ar-line{
+    font-family: "Amiri", serif;
+    font-size: 21px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    margin-top: 12px;
+    direction: rtl;
+    display: block;
+  }
+  .tablet .cite{
+    margin-top: 12px;
+    font-family:"IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  /* self-check */
+  .check{
+    margin: 34px 0 6px;
+    padding: 22px 24px;
+    background: transparent;
+    border-left: 3px solid var(--ember);
+  }
+  .check .src{
+    font-family:"IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ember);
+    display:block;
+    margin-bottom: 8px;
+  }
+  .check p{
+    font-family:"Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.45;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* divider mark - a simple balance scale, non-figurative */
+  .mark{
+    display:flex; justify-content:center; align-items:center;
+    padding: 6px 0 46px;
+  }
+  .mark svg{ width: 50px; height: 50px; opacity: 0.6; }
+  .mark svg *{ stroke: var(--accent); fill: none; }
+
+  .old-new{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 30px 0;
+  }
+  .old-new .cell{
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+  }
+  .old-new .cell .k{
+    font-family:"IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display:block;
+    margin-bottom: 8px;
+  }
+  .old-new .cell p{ margin:0; font-size: 15.5px; color: var(--ink-soft); line-height: 1.55; }
+  @media (max-width: 560px){ .old-new{ grid-template-columns: 1fr; } }
+
+  /* closing */
+  .closing{
+    background: var(--panel);
+    color: var(--ink);
+    text-align:center;
+    padding: 96px 24px 90px;
+    border-top: 1px solid var(--panel-line);
+  }
+  .closing .shahada{
+    font-family:"Amiri", serif;
+    font-size: 24px;
+    line-height: 1.8;
+    color: var(--accent-strong);
+    margin: 34px 0 10px;
+    direction: rtl;
+  }
+  .closing .translit{
+    font-family:"IBM Plex Mono", monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+  .closing .col{ margin: 0 auto; }
+  .closing p{ color: var(--ink-soft); }
+  .closing .lead-line{ color: var(--ink); }
+
+  /* colophon */
+  .colophon{
+    padding: 40px 24px 60px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    line-height: 1.9;
+    color: var(--ink-faint);
+  }
+  .colophon .col{ max-width: 640px; }
+  .colophon .row{ display:flex; gap: 8px; flex-wrap: wrap; }
+  .colophon .row span{ white-space: nowrap; }
+  .colophon .head{
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+    display:block;
+  }
+
+  @media (max-width: 640px){
+    section.piece{ padding: 48px 20px; }
+    .hero{ padding: 64px 20px 56px; }
+    .old-new{ margin: 24px 0; }
+  }
+
+  /* keep small components intact across a paginated / printed page */
+  p{ orphans: 3; widows: 3; break-inside: avoid; page-break-inside: avoid; }
+  .tablet, .check, .old-new, .old-new .cell, .mark, .hero-meta, .colophon, .scene{
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .eyebrow, h2.title, .lead-line{
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .closing{
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .article-nav { display: flex; justify-content: space-between; gap: 16px; padding: 20px 24px; font-size: 15px; }
+  .article-nav a { text-decoration: none; }
+  .article-nav a:hover { text-decoration: underline; }
+  @media print { .article-nav { display: none; } }
+</style>
+</head>
+<body>
+<nav class="article-nav wrap" aria-label="Site navigation">
+  <a href="{% url 'quran_list_chapter' %}">Ekummat</a>
+  <a href="{% url 'article_list' %}">&larr; All articles</a>
+</nav>
+
+<article>
+
+  <header class="hero">
+    <div class="hero-rays"></div>
+    <div class="wrap">
+      <div class="hero-eyebrow">الابتلاء &nbsp;·&nbsp; imtihaan, seedhi baat mein</div>
+      <h1>Khel Ya <em>Imtihaan</em></h1>
+      <p class="lede">Qayamat ke din, maut ko ek chitkabre meindhe ki shakal mein laya jayega aur sab ke saamne zibah kar diya jayega &mdash; phir ailaan hoga: ab kabhi maut nahi aayegi.</p>
+      <div class="hero-meta">
+        <span>ZINDAGI, MAUT, AUR UNKA MAQSAD</span>
+        <span>EK REFLECTION HAI, FATWA NAHI</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="piece scene">
+    <div class="wrap col">
+      <p class="eyebrow"><span class="ar">يوم القيامة</span> Qayamat ka din</p>
+      <h2 class="title">Jab Maut Khud Zibah Ki Jayegi</h2>
+      <p>Jannat aur dozakh, dono apni jagah le chuke honge. Phir ek elaan hoga, aur maut ko khud laaya jayega &mdash; ek chitkabre meindhe ki shakal mein, jaise koi janwar jise sab pehchante hain magar kisi ne is roop mein kabhi nahi dekha.</p>
+      <div class="tablet">
+        <span class="src">Ṣaḥīḥ al-Bukhārī 6548; Ṣaḥīḥ Muslim 2850</span>
+        <blockquote>&#8220;Jab jannati jannat mein aur dozakhi dozakh mein dakhil ho jayenge, to maut ko is haal mein laya jayega, goya wo ek chitkabra meindha hai, yahan tak ke use jannat aur dozakh ke darmiyan rakh diya jayega, phir use zibah kar diya jayega. Phir ek munaadi nida karega: &#8216;Ae ahle jannat! Ab maut nahi aayegi&#8217;, aur &#8216;Ae ahle dozakh! Ab maut nahi aayegi.&#8217;&#8221;</blockquote>
+      </div>
+      <p>Yeh ek alamat hai, ek tasveer &mdash; lekin iska paigham seedha hai: jo zindagi hum abhi guzar rahe hain, woh hamesha ke liye nahi. Ek din aisa aayega jab khud maut bhi khatam ho jayegi, aur jo baaqi rahega woh sirf iska nateeja hoga.</p>
+    </div>
+  </section>
+
+  <section class="piece">
+    <div class="wrap col">
+      <p class="eyebrow">asal baat</p>
+      <h2 class="title">Zindagi khel nahi, socha samjha imtihaan hai</h2>
+      <p class="lead-line">Ek hi ayat mein, Allah apne aap ko do cheezon ka khaaliq batata hai jo ek dusre ki zid lagti hain &mdash; maut aur zindagi. Dono banayi gayi, aur dono ka ek hi maqsad hai.</p>
+      <div class="tablet">
+        <span class="src">Qur&#8217;an 67:2</span>
+        <blockquote>&#8220;Woh jisne maut aur zindagi ko paida kiya, taake tumhein azmaaye ke tum mein se kaun amal mein zyada achha hai. Aur wahi sab par ghalib, bahut bakshne wala hai.&#8221;</blockquote>
+        <span class="ar-line">ٱلَّذِى خَلَقَ ٱلْمَوْتَ وَٱلْحَيَوٰةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا ۚ وَهُوَ ٱلْعَزِيزُ ٱلْغَفُورُ</span>
+      </div>
+      <p>Maut ko bhi &#8220;paida&#8221; kiya gaya kehna ajeeb lagta hai &mdash; hum use hamesha kisi cheez ke khatam hone se jodte hain, kisi cheez ke banne se nahi. Magar Qur&#8217;an ke mutabiq maut khud ek makhlooq hai, utni hi jaan-bujh kar banayi gayi jitni zindagi. Dono sirf ek test ke do hisse hain.</p>
+      <div class="tablet">
+        <span class="src">Qur&#8217;an 51:56</span>
+        <blockquote>&#8220;Aur maine jinno aur insaano ko paida nahi kiya magar isliye ke woh meri ibadat karein.&#8221;</blockquote>
+        <span class="ar-line">وَمَا خَلَقْتُ ٱلْجِنَّ وَٱلْإِنسَ إِلَّا لِيَعْبُدُونِ</span>
+      </div>
+      <p>Yeh us sawal ka jawab hai jo har kisi ke zehan mein kabhi na kabhi aata hai: main yahan kyun hoon? Jawab seedha hai, lekin iska matlab utna seedha nahi &mdash; ibadat sirf namaz-roza nahi, balke poori zindagi ka woh rukh hai jo Allah ki taraf mudta hai. Aaj is maqsad ko bhoolne ke teen aam tareeqe hain:</p>
+    </div>
+  </section>
+
+  <section class="piece">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 50 50">
+        <line x1="25" y1="5" x2="25" y2="38"/>
+        <line x1="9" y1="13" x2="41" y2="13"/>
+        <line x1="9" y1="13" x2="9" y2="19"/>
+        <line x1="41" y1="13" x2="41" y2="19"/>
+        <circle cx="9" cy="25" r="7"/>
+        <circle cx="41" cy="25" r="7"/>
+        <line x1="16" y1="44" x2="34" y2="44"/>
+      </svg>
+    </div>
+    <div class="wrap col">
+      <p class="eyebrow"><span class="ar">الزينة</span> az-zeenah &mdash; duniya ki raunaq</p>
+      <h2 class="title">Zeenat Ka Dhoka</h2>
+      <p>Allah ne zameen ko khaali nahi chhoda &mdash; usay saja diya, khoobsurat bana diya, taake log isi mein ulajh kar reh jaayein, ya is khoobsurati ke peechhe ke maqsad ko dekh lein.</p>
+      <div class="tablet">
+        <span class="src">Qur&#8217;an 18:7&#8211;8</span>
+        <blockquote>&#8220;Beshaq humne zameen par jo kuchh hai uske liye zeenat banaya hai, taake hum unhein azmaayein ke un mein se kaun amal mein behtar hai. Aur bila shubha hum jo kuchh us par hai, use zaroor ek chatiyal maidan bana denge.&#8221;</blockquote>
+        <span class="ar-line">إِنَّا جَعَلْنَا مَا عَلَى ٱلْأَرْضِ زِينَةً لَّهَا لِنَبْلُوَهُمْ أَيُّهُمْ أَحْسَنُ عَمَلًا ﴿٧﴾ وَإِنَّا لَجَٰعِلُونَ مَا عَلَيْهَا صَعِيدًا جُرُزًا ﴿٨﴾</span>
+      </div>
+      <p>Yeh zeenat jhooti nahi &mdash; ghar, gaadi, career, rishtey, sab asli hain. Dhoka tab shuru hota hai jab zeenat ko hi manzil samajh liya jaaye, jabke woh sirf test ka saaman thi.</p>
+      <div class="tablet">
+        <span class="src">Ṣaḥīḥ Muslim 2742; at-Tirmidhī 2191</span>
+        <blockquote>&#8220;Duniya meethi aur sabz hai, aur Allah Ta&#8217;ala tumhein us mein khaleefa bana kar dekhna chahta hai ke tum kaise amal karte ho. Bus duniya se bacho, aur aurton se bacho.&#8221;</blockquote>
+      </div>
+      <div class="old-new">
+        <div class="cell">
+          <span class="k">pehle zamane</span>
+          <p>Sona, chandi, achhe ghode, maweshi &mdash; jinke paas yeh hota, duniya mein unki izzat hoti, aur isi ki daur mein log ek dusre se aage badhne lagte.</p>
+        </div>
+        <div class="cell">
+          <span class="k">is hafte</span>
+          <p>Naya phone, bada ghar, promotion ki post &mdash; jinke paas yeh hota hai, unhi ki zindagi &#8220;successful&#8221; maani jaati hai, aur isi daur mein log khud ko hamesha peeche mehsoos karte hain.</p>
+        </div>
+      </div>
+      <div class="check">
+        <span class="src">sochne wali baat</span>
+        <p>Jo cheez aap sabse zyada chahte hain, kya woh manzil hai, ya raaste ka ek nishaan?</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="piece">
+    <div class="wrap col">
+      <p class="eyebrow"><span class="ar">اللعب</span> al-la&#8217;ib &mdash; khel samajhna</p>
+      <h2 class="title">Khel Ka Guman</h2>
+      <p>Agar zindagi ka koi hisaab nahi, to phir kuchh bhi ghalat nahi &mdash; yehi woh khayal hai jo Qur&#8217;an baar baar radd karta hai.</p>
+      <div class="tablet">
+        <span class="src">Qur&#8217;an 21:16&#8211;17</span>
+        <blockquote>&#8220;Aur humne aasman aur zameen ko, aur jo kuchh unke darmiyan hai, khelte huye nahi banaya. Agar hum chahte ke koi khel banayein to yaqeenan use apne paas se bana lete, agar hum karne wale hote.&#8221;</blockquote>
+        <span class="ar-line">وَمَا خَلَقْنَا ٱلسَّمَآءَ وَٱلْأَرْضَ وَمَا بَيْنَهُمَا لَٰعِبِينَ ﴿١٦﴾ لَوْ أَرَدْنَآ أَن نَّتَّخِذَ لَهْوًا لَّٱتَّخَذْنَٰهُ مِن لَّدُنَّآ إِن كُنَّا فَٰعِلِينَ ﴿١٧﴾</span>
+      </div>
+      <p>Yeh ayat un logon ke jawab mein aayi jo Nabi ﷺ se dushmani rakhte the, is khayal par ke yeh duniya aur iski lazzatein hamesha rahengi aur unka hisaab kabhi nahi hoga. Allah ne bataya: tumhari dushmani bhi khatam hogi, aur yeh duniya bhi &mdash; kyunke yeh kabhi khel thi hi nahi.</p>
+      <div class="tablet">
+        <span class="src">Qur&#8217;an 38:27 (Ṣād)</span>
+        <blockquote>&#8220;Aur humne aasman o zameen ko aur un dono ke darmiyan ki cheezon ko bekar paida nahi kiya. Yeh un logon ka gumaan hai jinhone kufr kiya.&#8221;</blockquote>
+      </div>
+      <div class="old-new">
+        <div class="cell">
+          <span class="k">pehle zamane</span>
+          <p>Kuffar-e-Makkah ka aitraaz tha ke dobara zinda kiya jaana &#8220;khula jaadu&#8221; hai &mdash; unke nazdeek maut ke baad koi hisaab nahi, is liye duniya mein jo chahe karo.</p>
+        </div>
+        <div class="cell">
+          <span class="k">is hafte</span>
+          <p>&#8220;Sirf ek hi zindagi hai, jo dil chahe karo&#8221; &mdash; ek jumla jo har jagah sunne ko milta hai, aksar bina yeh socha hue ke iske peechhe kya khayal chhupa hai.</p>
+        </div>
+      </div>
+      <div class="check">
+        <span class="src">sochne wali baat</span>
+        <p>Agar sach mein kal ka koi hisaab nahi, to aaj ke faislon ka wazan kaisa hoga?</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="piece">
+    <div class="wrap col">
+      <p class="eyebrow"><span class="ar">الابتلاء</span> al-ibtilā &mdash; azmaish</p>
+      <h2 class="title">Azmaish Ka Tarazu</h2>
+      <p>Azmaish ka matlab aksar sirf museebat samjha jaata hai. Qur&#8217;an iska daira zyada wasee rakhta hai.</p>
+      <div class="tablet">
+        <span class="src">Qur&#8217;an 21:35</span>
+        <blockquote>&#8220;Har jaan maut ko chakhne wali hai, aur hum tumhein burai aur bhalai mein mubtila karte hain, azmaane ke liye, aur tum hamari hi taraf lautaaye jaoge.&#8221;</blockquote>
+        <span class="ar-line">كُلُّ نَفْسٍ ذَآئِقَةُ ٱلْمَوْتِ ۗ وَنَبْلُوكُم بِٱلشَّرِّ وَٱلْخَيْرِ فِتْنَةً ۖ وَإِلَيْنَا تُرْجَعُونَ</span>
+      </div>
+      <p>Khushi aur gham, aasaani aur tangi &mdash; dono tarazu ke pallay hain, dono hisaab mein shaamil. Aasaani milna hamesha Allah ki raza ki alamat nahi, aur museebat aana hamesha uski naraazgi ki alamat nahi &mdash; dono sirf azmaish ki do shaklein hain.</p>
+      <div class="tablet">
+        <span class="src">Ṣaḥīḥ Muslim 2808</span>
+        <blockquote>&#8220;Allah Ta&#8217;ala kisi momin par ek neki ke mamle mein bhi zulm nahi karega, uska badla duniya mein bhi dega aur aakhirat mein bhi dega. Aur kafir ko uski un nekiyon ka badla jo usne Allah ke liye ki hongi, duniya hi mein de diya jaata hai, yahan tak ke jab woh aakhirat mein pahunchega to uske paas koi neki nahi hogi jiska badla use diya jaaye.&#8221;</blockquote>
+      </div>
+      <div class="old-new">
+        <div class="cell">
+          <span class="k">pehle zamane</span>
+          <p>Sahaba mein se kuchh ko maal o daulat di gayi, kuchh ko ghurbat &mdash; dono hi azmaish thi, kisi ek ko doosre se behtar nahi samjha gaya.</p>
+        </div>
+        <div class="cell">
+          <span class="k">is hafte</span>
+          <p>&#8220;Mujhe yeh museebat kyun di gayi&#8221; ek aam sawal hai; &#8220;mujhe yeh aasaani kyun di gayi, aur main isay kaise istemal kar raha hoon&#8221; bahut kam poochha jaata hai.</p>
+        </div>
+      </div>
+      <div class="check">
+        <span class="src">sochne wali baat</span>
+        <p>Pichhle mahine jo sabse aasaan waqt tha, kya usne aapko Allah ke qareeb kiya ya door?</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap col">
+      <p class="eyebrow" style="justify-content:center; color:var(--accent);"><span class="ar" style="color:var(--accent-strong);">مَحْيَايَ وَمَمَاتِي</span> aakhri baat</p>
+      <p class="lead-line">Jab Nabi ﷺ namaz shuru karte, ya qurbani ke liye janwar ko qibla-rukh karte, to ek hi dua dohraate &mdash; ke zindagi aur maut, dono ka rukh ek hi taraf hai.</p>
+      <div class="tablet" style="text-align:left;">
+        <span class="src">Qur&#8217;an 6:162&#8211;163</span>
+        <blockquote>&#8220;Keh de: beshaq meri namaz aur meri qurbani aur meri zindagi aur meri maut Allah hi ke liye hai, jo saare jahano ka Rab hai. Uska koi shareek nahi, aur mujhe isi ka hukm diya gaya hai, aur main sabse pehle farmanbardar hoon.&#8221;</blockquote>
+        <span class="ar-line">قُلْ إِنَّ صَلَاتِى وَنُسُكِى وَمَحْيَاىَ وَمَمَاتِى لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ ﴿١٦٢﴾ لَا شَرِيكَ لَهُۥ ۖ وَبِذَٰلِكَ أُمِرْتُ وَأَنَا۠ أَوَّلُ ٱلْمُسْلِمِينَ ﴿١٦٣﴾</span>
+      </div>
+      <p>Yehi woh jawab hai jo poori is reflection ka khulasa hai. Zindagi ka maqsad kisi ek lamhe mein nahi milta &mdash; namaz mein milta hai, qurbani mein milta hai, roz ke faislon mein milta hai, aur aakhir mein, khud maut ko qabool karne ke tareeqe mein bhi milta hai.</p>
+      <div class="shahada">اللَّهُمَّ أَحْيِنِي مَا كَانَتِ الْحَيَاةُ خَيْرًا لِي وَتَوَفَّنِي إِذَا كَانَتِ الْوَفَاةُ خَيْرًا لِي</div>
+      <div class="translit">Allahumma ahyini ma kaanatil-hayaatu khayran li, wa tawaffani idha kaanatil-wafaatu khayran li &nbsp;·&nbsp; Ya Allah, mujhe zinda rakh jab tak zindagi mere liye behtar ho, aur mujhe wafaat de jab maut mere liye behtar ho</div>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div class="wrap col">
+      <span class="head">hawale</span>
+      <div class="row">
+        <span>Qur&#8217;an 67:2</span><span>&#183;</span>
+        <span>51:56</span><span>&#183;</span>
+        <span>18:7&#8211;8</span><span>&#183;</span>
+        <span>21:16&#8211;17</span><span>&#183;</span>
+        <span>21:35</span><span>&#183;</span>
+        <span>38:27</span><span>&#183;</span>
+        <span>6:162&#8211;163</span>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <span>Ṣaḥīḥ al-Bukhārī 6548</span><span>&#183;</span>
+        <span>Ṣaḥīḥ Muslim 2850</span><span>&#183;</span>
+        <span>Ṣaḥīḥ Muslim 2742</span><span>&#183;</span>
+        <span>at-Tirmidhī 2191</span><span>&#183;</span>
+        <span>Ṣaḥīḥ Muslim 2808</span><span>&#183;</span>
+        <span>Ṣaḥīḥ al-Bukhārī 5671</span><span>&#183;</span>
+        <span>Ṣaḥīḥ Muslim 2680</span>
+      </div>
+      <p style="margin:18px 0 0; max-width:56ch;">Yeh ek zaati reflection hai, fatwa nahi. Jo baat aapke liye zaroori ho, uski tasdeeq kisi qualified aalim se zaroor kar lein.</p>
+    </div>
+  </footer>
+
+</article>
+
+</body>
+</html>
