@@ -1,0 +1,32 @@
+{% extends 'frontend/base.html' %}
+
+{% block title %}Articles{% endblock title %}
+
+{% block content %}
+<main class="my-5 py-5">
+  <div class="container mt-sm-5 mt-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'quran_list_chapter' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Articles</li>
+      </ol>
+    </nav>
+    <header class="mb-5">
+      <h1>Articles</h1>
+      <p class="lead">Reflections on faith, life, and the lessons of the Quran and Hadith.</p>
+    </header>
+    <div class="row">
+      <div class="col-lg-8">
+        <article class="card">
+          <div class="card-body p-4">
+            <p class="text-sm text-uppercase font-weight-bold text-primary">Faith &amp; reflection · Roman Urdu</p>
+            <h2 class="h3"><a href="{% url 'article_khel_ya_imtihaan' %}">Khel Ya Imtihaan</a></h2>
+            <p>Zindagi, maut, aur unka maqsad — Quran aur Hadith ki roshni mein ek reflection.</p>
+            <a class="btn bg-gradient-primary mb-0" href="{% url 'article_khel_ya_imtihaan' %}">Read article</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
