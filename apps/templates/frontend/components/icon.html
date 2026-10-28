@@ -1,0 +1,18 @@
+<svg class="icon{% if class %} {{ class }}{% endif %}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+{% if name == 'book' %}<path d="M12 5.5C9 3.5 5.5 3.5 2.5 5v14c3-1.5 6.5-1.5 9.5.5 3-2 6.5-2 9.5-.5V5c-3-1.5-6.5-1.5-9.5.5Z"/><path d="M12 5.5v14M6 8l2.5.3M6 11l2.5.3M16 8.3l2-.3M16 11.3l2-.3"/>
+{% elif name == 'arrow' %}<path d="M4 12h15m-6-6 6 6-6 6"/>
+{% elif name == 'chevron' %}<path d="m9 5 7 7-7 7"/>
+{% elif name == 'search' %}<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/>
+{% elif name == 'sun' %}<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>
+{% elif name == 'moon' %}<path d="M20.5 14A8.7 8.7 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"/>
+{% elif name == 'bookmark' %}<path d="M6 3h12v18l-6-4-6 4Z"/>
+{% elif name == 'download' %}<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>
+{% elif name == 'file' %}<path d="M14 2H5v20h14V7l-5-5Z"/><path d="M14 2v6h5M8 13h8m-8 4h6"/>
+{% elif name == 'copy' %}<rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/>
+{% elif name == 'share' %}<path d="M12 15V2m-5 5 5-5 5 5M6 10H3v11h18V10h-3"/>
+{% elif name == 'spark' %}<path d="m12 2 2.7 6.6L22 12l-7.3 3.4L12 22l-2.7-6.6L2 12l7.3-3.4L12 2Z"/>
+{% elif name == 'heart' %}<path d="M20 5c-3-3-7-1-8 1-1-2-5-4-8-1s-1 7 1 9l7 7 7-7c2-2 4-6 1-9Z"/>
+{% elif name == 'menu' %}<path d="M4 6h16M4 12h16M4 18h16"/>
+{% elif name == 'check' %}<path d="m4 12 5 5L20 6"/>
+{% endif %}
+</svg>

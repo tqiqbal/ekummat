@@ -1,75 +1,62 @@
 {% extends 'frontend/base.html' %}
-
-{% block title %} Quran {% endblock title %}
-
-<!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
+{% block title %}A space for faith & reflection{% endblock %}
 {% block content %}
-
-<section class="my-5 py-5">
-
-    <div class="container mt-sm-5 mt-3">
-       <!-- 1A Section -->
-       <div class="row">
-          <div class="col">
-             <div class="mb-4 ">
-                <nav aria-label="breadcrumb">
-                   <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Quran</li>
-                   </ol>
-                </nav>
-                <!-- <h3>Chapter - Section 1</h3> -->
-             </div>
-          </div>
-       </div>
-       <!-- 1A Section 1A -->
-
-
-
-<div class="row" id="quran-list">
-    <div class="col-md-4 ml-auto">
-  
-        {% for chapter in chapter_list %}
-            {% if forloop.counter <= 38 %}
-            <a href="/{{chapter.id}}/" target="_self">
-                <button type="button" class="btn btn-outline-dark btn-lg w-100 "> 
-                    {{chapter.id}} &nbsp; {{chapter.name_simple}}  <span style="color: black;" class="uthmani">&nbsp; {{chapter.name_arabic}}</span> 
-            
-                </button>
-            </a>
-            {% endif %}
-        {% endfor %}
-    </div>
-    <div class="col-md-4 mr-auto">
-        {% for chapter in chapter_list %}
-        {% if forloop.counter > 38 and forloop.counter <= 76 %}
-        <a href="/{{chapter.id}}/" target="_self">
-            <button type="button" class="btn btn-outline-dark btn-lg w-100 "> {{chapter.id}} &nbsp; {{chapter.name_simple}}  <span style="color: black;" class="uthmani">&nbsp; {{chapter.name_arabic}}</span> </button>
-        </a>
-            {% endif %}
-        {% endfor %}
-    </div>
-    <div class="col-md-4 mr-auto">
-        {% for chapter in chapter_list %}
-        {% if forloop.counter > 76 %}
-        <a href="/{{chapter.id}}/" target="_self">
-            <button type="button" class="btn btn-outline-dark btn-lg w-100 "> {{chapter.id}} &nbsp; {{chapter.name_simple}}  <span style="color: black;" class="uthmani">&nbsp; {{chapter.name_arabic}}</span> </button>
-        </a>
-        {% endif %}
-        {% endfor %}
-    </div>
-
-    
+<section class="home-hero site-shell">
+  <div class="hero-copy">
+    <p class="eyebrow"><span class="small-star" aria-hidden="true">✧</span> KNOWLEDGE THAT BRINGS US CLOSER</p>
+    <h1>A quiet space for<br>faith <em>& reflection.</em></h1>
+    <p class="hero-description">Explore the Quran, discover the wisdom of Hadith, and find meaning in the everyday. In words that feel closer to home.</p>
+    <div class="hero-actions"><a class="button button-primary" href="#quran">Explore the Quran {% include 'frontend/components/icon.html' with name='arrow' %}</a><a class="text-link" href="{% url 'mishkat-al-masabih' %}">Read Hadith <span aria-hidden="true">↗</span></a></div>
+    <div class="hero-note"><span class="note-line"></span>Rooted in faith. Accessible in Roman Urdu.</div>
+    <a class="continue-reading" data-continue-reading hidden><span>{% include 'frontend/components/icon.html' with name='bookmark' %} Continue reading</span><strong data-continue-title></strong><span aria-hidden="true">→</span></a>
   </div>
-
-
-
+  <div class="hero-art" aria-label="Bismillah, in the name of Allah">
+    <div class="art-topline"><span>بِسْمِ اللَّهِ</span><span>READ · REFLECT · RECONNECT</span></div>
+    <div class="art-arch"><div class="art-inner-arch"><span class="art-star" aria-hidden="true">✧</span><p class="art-calligraphy" lang="ar" dir="rtl">بِسْمِ اللَّهِ<br>الرَّحْمَٰنِ الرَّحِيمِ</p><span class="art-rule"></span><p class="art-caption">Every journey begins<br>with His name.</p></div></div>
+    <div class="art-bottomline"><span>A MOMENT OF STILLNESS</span><span aria-hidden="true">01 — 114</span></div>
+  </div>
+</section>
+<section class="quick-access site-shell" aria-labelledby="quick-heading">
+  <div class="section-kicker"><span id="quick-heading">A GOOD PLACE TO BEGIN</span><span class="fine-rule"></span></div>
+  <div class="quick-grid">
+    <a class="quick-card" href="/18/"><span class="quick-number">18</span><div><h2>Al-Kahf</h2><p>The Cave</p></div><span class="quick-arabic" lang="ar" dir="rtl">الكهف</span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+    <a class="quick-card" href="/36/"><span class="quick-number">36</span><div><h2>Ya-Sin</h2><p>Surah Ya-Sin</p></div><span class="quick-arabic" lang="ar" dir="rtl">يس</span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+    <a class="quick-card" href="/55/"><span class="quick-number">55</span><div><h2>Ar-Rahman</h2><p>The Most Merciful</p></div><span class="quick-arabic" lang="ar" dir="rtl">الرحمن</span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+    <a class="quick-card" href="/67/"><span class="quick-number">67</span><div><h2>Al-Mulk</h2><p>The Sovereignty</p></div><span class="quick-arabic" lang="ar" dir="rtl">الملك</span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+  </div>
+</section>
+<section class="quran-section" id="quran" aria-labelledby="quran-heading">
+  <div class="site-shell">
+    <div class="section-heading"><div><p class="eyebrow">THE QURAN</p><h2 id="quran-heading">A chapter for every journey.</h2><p>Read, understand, and reflect. Explore all 114 Surahs.</p></div><a class="text-link" href="{% url 'pdf_quran_list' %}">{% include 'frontend/components/icon.html' with name='download' %} Quran PDFs</a></div>
+    <div class="chapter-tools">
+      <label class="search-field">{% include 'frontend/components/icon.html' with name='search' %}<span class="sr-only">Find a Surah by name or number</span><input type="search" placeholder="Find a Surah by name or number…" data-chapter-search autocomplete="off"><kbd aria-hidden="true">/</kbd></label>
+      <div class="filter-group" role="group" aria-label="Filter Surahs"><button type="button" class="filter-button active" aria-pressed="true" data-chapter-filter="all">All Surahs</button><button type="button" class="filter-button" aria-pressed="false" data-chapter-filter="makkah">Meccan</button><button type="button" class="filter-button" aria-pressed="false" data-chapter-filter="madinah">Medinan</button></div>
     </div>
+    <div class="list-caption"><span>YOUR READING JOURNEY</span><span data-chapter-count aria-live="polite">{{ chapter_list|length }} Surahs</span></div>
+    <div class="chapter-grid" data-chapter-list>
+      {% for chapter in chapter_list %}
+      <a class="chapter-card" href="{% url 'quran_get_chapter' chapter.id %}" data-chapter-card data-name="{{ chapter.id }} {{ chapter.name_simple }} {{ chapter.name_arabic }} {{ chapter.name_complex }} {{ chapter.translated_name.name }}" data-place="{{ chapter.revelation_place }}">
+        <span class="chapter-number"><span>{{ chapter.id }}</span></span>
+        <div class="chapter-name"><h3>{{ chapter.name_simple }}</h3><p>{% if chapter.translated_name.name %}{{ chapter.translated_name.name }}{% else %}Read Surah{% endif %}<span aria-hidden="true"> · </span>{{ chapter.verses_count }} Ayahs</p></div>
+        <div class="chapter-arabic"><span lang="ar" dir="rtl">{{ chapter.name_arabic }}</span><small>{% if chapter.revelation_place == 'makkah' %}MECCAN{% elif chapter.revelation_place == 'madinah' %}MEDINAN{% endif %}</small></div>
+      </a>
+      {% empty %}<div class="empty-state"><h3>The Surah index is temporarily unavailable.</h3><p>You can still open the featured Surahs above or explore the Quran PDF library.</p><a class="button button-secondary" href="{% url 'pdf_quran_list' %}">Open Quran library</a></div>{% endfor %}
     </div>
- </section>
-
-{% endblock content%}
-
-{% block javascripts %}{% endblock javascripts %}
+    <div class="empty-state" data-no-chapters hidden><h3>No Surahs found.</h3><p>Try a different name or number, or choose All Surahs.</p><button class="button button-secondary" type="button" data-reset-chapters>Clear search & filters</button></div>
+    <div class="chapter-expand"><button class="button button-secondary" type="button" data-expand-chapters aria-expanded="false" hidden>View all Surahs ↓</button></div>
+  </div>
+</section>
+<section class="discover-section site-shell" aria-labelledby="discover-heading">
+  <div class="section-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="discover-heading">Many paths. One purpose.</h2></div><p>Find wisdom for your everyday.</p></div>
+  <div class="discover-grid">
+    <a class="discover-card" href="{% url 'mishkat-al-masabih' %}"><span class="discover-icon">{% include 'frontend/components/icon.html' with name='book' %}</span><span class="eyebrow">THE HADITH COLLECTION</span><h3>Wisdom to live by.</h3><p>Explore Mishkat al-Masabih in Roman Urdu, Hindi, and Arabic.</p><span class="text-link">Explore Hadith {% include 'frontend/components/icon.html' with name='arrow' %}</span></a>
+    <a class="discover-card" href="{% url 'pdf_dua_list' %}"><span class="discover-icon">{% include 'frontend/components/icon.html' with name='heart' %}</span><span class="eyebrow">DUA & REMEMBRANCE</span><h3>Words for the heart.</h3><p>A collection of duas from the Quran and Sunnah, with translations.</p><span class="text-link">Find a Dua {% include 'frontend/components/icon.html' with name='arrow' %}</span></a>
+    <a class="discover-card" href="{% url 'pdf_hadith_list' %}"><span class="discover-icon">{% include 'frontend/components/icon.html' with name='file' %}</span><span class="eyebrow">YOUR READING LIBRARY</span><h3>Take the learning with you.</h3><p>Browse books and PDF collections to read at your own pace.</p><span class="text-link">Browse the library {% include 'frontend/components/icon.html' with name='arrow' %}</span></a>
+  </div>
+</section>
+<section class="reflection-section site-shell" aria-labelledby="reflection-heading">
+  <div class="reflection-art" aria-hidden="true"><span>الابتلاء</span><small>REFLECTION NO. 01</small></div>
+  <div class="reflection-copy"><p class="eyebrow">PAUSE & REFLECT</p><h2 id="reflection-heading">Khel Ya <em>Imtihaan?</em></h2><p>Zindagi, maut, aur unka maqsad — Quran aur Hadith ki roshni mein ek reflection.</p><a class="text-link" href="{% url 'article_khel_ya_imtihaan' %}">Read the reflection {% include 'frontend/components/icon.html' with name='arrow' %}</a></div>
+  <a class="all-reflections" href="{% url 'article_list' %}">All articles <span aria-hidden="true">↗</span></a>
+</section>
+{% endblock %}

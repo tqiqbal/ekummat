@@ -1,374 +1,65 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" class="notranslate" translate="no">
-
 <head>
-  <meta name="google" content="notranslate">
   <meta charset="UTF-8">
-  <meta name="description" content="Quran in Roman Urdu">
-  <meta name="keywords" content="Quran, Roman, Urdu, Quran in Urdu, Quran in Roman Urdu">
-  <meta name="author" content="">
-  
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="/static/frontend/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="/static/frontend/assets/img/favicon.png">
-  <title>
-    Ekummat - {% block title %}{% endblock %} 
-  </title>
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
-  <link href="/static/frontend/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="frontend/assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="/static/frontend/assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link id="pagestyle" href="/static/frontend/assets/css/soft-design-system.css?v=1.0.5" rel="stylesheet" />
-
-
-  <link href="/static/frontend/fonts/Uthmani-Hafs.woff2" type="font/woff2"  rel="preload" crossorigin="" />
-  <link href="/static/frontend/assets/css/custom.css" rel="stylesheet">
-
-
-
-
-  {% block stylesheets %}{% endblock stylesheets %}
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google" content="notranslate">
+  <meta name="description" content="{% block description %}Read the Quran, explore Hadith, and find thoughtful reflections in accessible Roman Urdu. A quiet space for learning with Ekummat.{% endblock %}">
+  <meta name="theme-color" content="#173f35">
+  <title>{% block title %}A space for faith & reflection{% endblock %} · Ekummat</title>
+  <link rel="icon" href="{% static 'frontend/ekummat/favicon.svg' %}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/ekummat/site.css' %}?v=2">
+  {% block stylesheets %}{% endblock %}
+  <script src="{% static 'frontend/ekummat/site.js' %}?v=2" defer></script>
 </head>
-<body class="index-page">
-   <!-- Navbar -->
-   <div class="container position-sticky z-index-sticky top-0">
-      <div class="row">
-         <div class="col-12">
-            <nav class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
-               <div class="container-fluid">
-                  <a class="navbar-brand font-weight-bolder ms-sm-3" href="{% url 'quran_list_chapter' %}" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_self">
-                     <!-- <p class="d-inline text-lg z-index-1 font-weight-bold" >Ekummat</p> -->
-                     <h3 class="text-gradient text-primary">Ekummat</h3>
-                  </a>
-                  <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon mt-2">
-                  <span class="navbar-toggler-bar bar1"></span>
-                  <span class="navbar-toggler-bar bar2"></span>
-                  <span class="navbar-toggler-bar bar3"></span>
-                  </span>
-                  </button>
-                  <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
-                     <ul class="navbar-nav navbar-nav-hover ms-lg-5 ps-lg-5 w-100">
-                        <li class="nav-item dropdown dropdown-hover mx-2">
-                           <a class="nav-link nav-link-icon me-2" href="{% url 'quran_list_chapter' %}" target="_self">
-                              <p class="d-inline text-lg z-index-1 font-weight-bold" >Home</p>
-                           </a>
-                        </li>
-                        <!-- <li class="nav-item dropdown dropdown-hover mx-2">
-                           <a class="nav-link nav-link-icon me-2" href="#" target="_self">
-                             <p class="d-inline text-lg z-index-1 font-weight-bold" >About Us</p>
-                           </a>
-                           </li> -->
-                        <li class="nav-item dropdown dropdown-hover mx-2">
-                           <a class="nav-link nav-link-icon me-2" href="{% url 'mishkat-al-masabih' %}" target="_self">
-                              <p class="d-inline text-lg z-index-1 font-weight-bold" >Mishkat al-Masabih</p>
-                           </a>
-                        </li>
-                        <li class="nav-item dropdown dropdown-hover mx-2">
-                          <a class="nav-link nav-link-icon me-2" href="{% url 'pdf_quran_list' %}" target="_self">
-                             <p class="d-inline text-lg z-index-1 font-weight-bold" >Quran</p>
-                          </a>
-                       </li>
-                       <li class="nav-item dropdown dropdown-hover mx-2">
-                        <a class="nav-link nav-link-icon me-2" href="{% url 'pdf_hadith_list' %}" target="_self">
-                           <p class="d-inline text-lg z-index-1 font-weight-bold" > Hadith</p>
-                        </a>
-                     </li>
-
-                        <li class="nav-item dropdown dropdown-hover mx-2">
-                           <a class="nav-link nav-link-icon me-2" href="{% url 'pdf_dua_list' %}" target="_self">
-                              <p class="d-inline text-lg z-index-1 font-weight-bold" > Dua</p>
-                           </a>
-                        </li>
-                        <li class="nav-item dropdown dropdown-hover mx-2">
-                           <a class="nav-link nav-link-icon me-2" href="{% url 'article_list' %}">
-                              <p class="d-inline text-lg z-index-1 font-weight-bold">Articles</p>
-                           </a>
-                        </li>
-                        <li class="nav-item my-auto ms-3 ms-lg-0">
-                           <a href="#" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#about-us">About Us</a>
-                           <!-- <a href="#" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#contactUsModel">Contact Us</a> -->
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-            </nav>
-         </div>
-      </div>
-   </div>
-   <!-- End Navbar -->
-
-
-   {% block content %}{% endblock content %}
-
-
-
-   <!-- About Us model Start -->
-   <div class="row">
-      <div class="col-md-4">
-         <div class="modal fade" id="about-us" tabindex="-1" role="dialog" aria-labelledby="about-us" aria-hidden="true">
-            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-               <div class="modal-content">
-                  <div class="modal-header">
-                     <h6 class="modal-title text-gradient text-primary" id="modal-title-default">Ekummat.com</h6>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">×</span>
-                     </button>
-                  </div>
-                  <div class="modal-body">
-                     <p>
-                        We are a non-profit organization using the digital media platform to help spread the message of Allah to the common man through simple roman English. Our internal survey indicates that people have difficulty understanding and reading Urdu or English Tafseer. We have started this initiative so that a beginner or basic reader who has some English skills can now easily read and understand the Tafseer.
-                     </p>
-                     <p>
-                        Thankfully, after months of hard work, we've been able to finish this project. It is important to note that the amount of the content to be used or shared in relation as a whole, such as using a Hadith in its entirety, or using one chapter from a Surah. Manipulating, cutting or cropping and/or pasting, attaching with other part of this website wherein it loses its authenticity and understanding is not allowed Throughout the content on this website, expert guidance has been provided and the utmost care has been taken to eliminate any mistakes. You are welcome to notify us if you find any errors.
-                     </p>
-                  </div>
-                  <div class="modal-footer">
-                     <button type="button" class="btn bg-gradient-primary" data-bs-dismiss="modal">Close</button>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- About Us model End -->
-   <!-- Contact Us model Start -->
-   <div class="modal fade" id="contactUsModel" tabindex="-1" role="dialog" aria-labelledby="contactUsModelTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Leave us a Message</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">×</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <form>
-                  <div class="form-group">
-                     <label for="recipient-name" class="col-form-label">Name:</label>
-                     <input type="text" class="form-control" id="recipient-name">
-                  </div>
-                  <div class="form-group">
-                     <label for="recipient-email" class="col-form-label">Email :</label>
-                     <input type="email" class="form-control"  id="recipient-email">
-                  </div>
-                  <div class="form-group">
-                     <label for="message-text" class="col-form-label">Message:</label>
-                     <textarea class="form-control" id="message-text"></textarea>
-                  </div>
-               </form>
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-               <button type="button" class="btn bg-gradient-primary">Send message</button>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- Contact Us model End -->
-
-
-   
-  <footer class="footer pt-5 mt-5">
-    <hr class="horizontal dark mb-5">
-    <div class="container">
-
-      <div class=" row">
-        <div class="col-md-3 mb-4 ms-auto">
-          <div>
-            <h6 class="text-gradient text-primary font-weight-bolder">Ekummat</h6>
-          </div>
-          <div>
-            <h6 class="mt-3 mb-2 opacity-8">Social</h6>
-            <ul class="d-flex flex-row ms-n3 nav">
-              <li class="nav-item">
-                <a class="nav-link pe-1" href="#" target="_self">
-                  <i class="fab fa-facebook text-lg opacity-8"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link pe-1" href="#" target="_self">
-                  <i class="fab fa-twitter text-lg opacity-8"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link pe-1" href="#" target="_self">
-                  <i class="fab fa-dribbble text-lg opacity-8"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link pe-1" href="#" target="_self">
-                  <i class="fab fa-github text-lg opacity-8"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link pe-1" href="#" target="_self">
-                  <i class="fab fa-youtube text-lg opacity-8"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-2 col-sm-6 col-6 mb-4">
-          <div>
-            <h6 class="text-gradient text-primary text-sm">Quran</h6>
-            <ul class="flex-column ms-n3 nav">
-              <li class="nav-item">
-                <a class="nav-link " href="/18/" target="_self">
-                  Surah Al-Kahf (الكهف)
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="/67/" target="_self">
-                  Al Mulk (الملك)
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="/36/" target="_self">
-                  Surah Yaseen (يس)
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="/55/" target="_self">
-                  Ar-Rahman (الرحمن)
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-2 col-sm-6 col-6 mb-4">
-          <div>
-            <h6 class="text-gradient text-primary text-sm">Resources</h6>
-            <ul class="flex-column ms-n3 nav">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'mishkat-al-masabih' %}" target="_self">
-                  Mishkat al-Masabih
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'pdf_hadith_list' %}" target="_self">
-                  Sahih al-Bukhari PDF
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'pdf_hadith_list' %}" target="_self">
-                  Sahih Muslim PDF
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'pdf_hadith_list' %}" target="_self">
-                  Jami Al Tirmidhi PDF
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'pdf_hadith_list' %}" target="_self">
-                  Sunan Abi Dawud PDF
-                </a>
-              </li>
-              
-              
-
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-2 col-sm-6 col-6 mb-4">
-          <div>
-            <h6 class="text-gradient text-primary text-sm">Help & Support</h6>
-            <ul class="flex-column ms-n3 nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#" target="_self"  data-bs-toggle="modal" data-bs-target="#contactUsModel">
-                  Contact Us
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" target="_self" data-bs-toggle="modal" data-bs-target="#contactUsModel">
-                  Suggestions
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
-          <div>
-            <h6 class="text-gradient text-primary text-sm">About Us</h6>
-            <ul class="flex-column ms-n3 nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#" target="_self" data-bs-toggle="modal" data-bs-target="#about-us">
-                  Overview
-                </a>
-              </li>
-
-            </ul>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="text-center">
-            <p class="my-4 text-sm">
-              All rights reserved. Copyright © <script>
-                document.write(new Date().getFullYear())
-              </script> Develope and Design by <a href="https://www.facebook.com/PashaAbdulWaheed" target="_self">Abdul Waheed</a>.
-            </p>
-          </div>
-        </div>
-      </div>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell header-inner">
+      <a class="brand" href="{% url 'quran_list_chapter' %}" aria-label="Ekummat home">
+        <span class="brand-symbol">{% include 'frontend/components/icon.html' with name='book' %}</span>
+        <span>Ekummat<span class="brand-dot">.</span></span>
+      </a>
+      <button class="icon-button menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle>{% include 'frontend/components/icon.html' with name='menu' %}</button>
+      <nav id="site-navigation" class="site-navigation" aria-label="Main navigation">
+        <a href="{% url 'quran_list_chapter' %}#quran"{% if request.path == '/' or chapter %} class="current"{% endif %}>Quran</a>
+        <a href="{% url 'mishkat-al-masabih' %}"{% if 'mishkat-al-masabih' in request.path %} class="current"{% endif %}>Hadith</a>
+        <a href="{% url 'pdf_dua_list' %}"{% if request.path == '/pdf_dua_list' %} class="current"{% endif %}>Dua</a>
+        <a href="{% url 'article_list' %}"{% if 'articles' in request.path %} class="current"{% endif %}>Articles</a>
+        <a href="{% url 'pdf_quran_list' %}"{% if request.path == '/pdf_quran_list' or request.path == '/pdf_hadith_list' %} class="current"{% endif %}>Library</a>
+        <a href="#about" data-about-link>About</a>
+      </nav>
+      <a class="header-cta" href="{% url 'quran_list_chapter' %}#quran">Start reading {% include 'frontend/components/icon.html' with name='arrow' %}</a>
     </div>
-
+  </header>
+  <main id="main-content" tabindex="-1">{% block content %}{% endblock %}</main>
+  <footer class="site-footer">
+    <div class="site-shell">
+      <div class="footer-top">
+        <div class="footer-intro">
+          <a class="brand" href="{% url 'quran_list_chapter' %}"><span class="brand-symbol">{% include 'frontend/components/icon.html' with name='book' %}</span><span>Ekummat<span class="brand-dot">.</span></span></a>
+          <p>Bringing understanding closer.<br>A space to read, reflect, and reconnect.</p>
+          <span class="footer-arabic" lang="ar" dir="rtl">وَقُل رَّبِّ زِدْنِي عِلْمًا</span>
+          <small>“My Lord, increase me in knowledge.” · Quran 20:114</small>
+        </div>
+        <div class="footer-links"><h2>Explore</h2><a href="{% url 'quran_list_chapter' %}#quran">The Quran</a><a href="{% url 'mishkat-al-masabih' %}">Mishkat al-Masabih</a><a href="{% url 'pdf_dua_list' %}">Dua collection</a><a href="{% url 'article_list' %}">Articles & reflections</a></div>
+        <div class="footer-links"><h2>From the library</h2><a href="/18/">Surah Al-Kahf</a><a href="/36/">Surah Ya-Sin</a><a href="/67/">Surah Al-Mulk</a><a href="{% url 'pdf_quran_list' %}">Quran PDFs</a><a href="{% url 'pdf_hadith_list' %}">Hadith PDFs</a></div>
+        <div class="footer-about">
+          <details id="about"><summary>About this project <span aria-hidden="true">+</span></summary>
+            <p>We are a non-profit organization using the digital media platform to help spread the message of Allah to the common man through simple roman English. Our internal survey indicates that people have difficulty understanding and reading Urdu or English Tafseer. We have started this initiative so that a beginner or basic reader who has some English skills can now easily read and understand the Tafseer.</p>
+            <p>Thankfully, after months of hard work, we've been able to finish this project. It is important to note that the amount of the content to be used or shared in relation as a whole, such as using a Hadith in its entirety, or using one chapter from a Surah. Manipulating, cutting or cropping and/or pasting, attaching with other part of this website wherein it loses its authenticity and understanding is not allowed Throughout the content on this website, expert guidance has been provided and the utmost care has been taken to eliminate any mistakes. You are welcome to notify us if you find any errors.</p>
+          </details>
+          <p>Made with care, for a deeper connection to faith.</p>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© {% now 'Y' %} Ekummat. All rights reserved.</span><span>Founded & developed by <a href="https://www.facebook.com/PashaAbdulWaheed">Abdul Waheed</a></span><a href="#main-content">Back to top ↑</a></div>
+    </div>
   </footer>
-  <!--   Core JS Files   -->
-  <script src="/static/frontend/assets/js/core/popper.min.js" type="text/javascript"></script>
-  <script src="/static/frontend/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-  <script src="/static/frontend/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
-  <script src="/static/frontend/assets/js/plugins/countup.min.js"></script>
-  <script src="/static/frontend/assets/js/plugins/choices.min.js"></script>
-  <script src="/static/frontend/assets/js/plugins/prism.min.js"></script>
-  <script src="/static/frontend/assets/js/plugins/highlight.min.js"></script>
-  <!--  Plugin for Parallax, full documentation here: https://github.com/dixonandmoe/rellax -->
-  <script src="/static/frontend/assets/js/plugins/rellax.min.js"></script>
-  <!--  Plugin for TiltJS, full documentation here: https://gijsroge.github.io/tilt.js -->
-  <script src="/static/frontend/assets/js/plugins/tilt.min.js"></script>
-  <!--  Plugin for Selectpicker - ChoicesJS, full documentation here: https://github.com/jshjohnson/Choices -->
-  <script src="/static/frontend/assets/js/plugins/choices.min.js"></script>
-  <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
-  <script src="/static/frontend/assets/js/plugins/parallax.min.js"></script>
-  <!-- Control Center for Soft UI Kit: parallax effects, scripts for the example pages etc -->
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
-  <script src="/static/frontend/assets/js/soft-design-system.min.js?v=1.0.5" type="text/javascript"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script type="text/javascript">
-    if (document.getElementById('state1')) {
-      const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
-      if (!countUp.error) {
-        countUp.start();
-      } else {
-        console.error(countUp.error);
-      }
-    }
-    if (document.getElementById('state2')) {
-      const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
-      if (!countUp1.error) {
-        countUp1.start();
-      } else {
-        console.error(countUp1.error);
-      }
-    }
-    if (document.getElementById('state3')) {
-      const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
-      if (!countUp2.error) {
-        countUp2.start();
-      } else {
-        console.error(countUp2.error);
-      };
-    }
-  </script>
-{% block javascripts %}{% endblock javascripts %}
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+  {% block javascripts %}{% endblock %}
 </body>
 </html>

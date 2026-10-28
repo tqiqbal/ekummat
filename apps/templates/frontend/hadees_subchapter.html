@@ -1,91 +1,18 @@
 {% extends 'frontend/base.html' %}
-
-{% block title %}  {% endblock title %}
-
-<!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
+{% block title %}{% if hadith_sub_chapter %}{{ hadith_sub_chapter.0.hadith_book_main_chapter.english_name }} · {% endif %}Mishkat al-Masabih{% endblock %}
 {% block content %}
-<section class="my-5 py-5">
-    <div class="container mt-sm-5 mt-3">
-       <!-- Hadith Sub Content Start  -->
-
-       {% for sub in hadith_sub_chapter %}
-       <div class="row">
-          <div class="col">
-             <div class="mt-0">
-                <nav aria-label="breadcrumb">
-                   <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Mishkat al-Masabih</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">{{sub.hadith_book_main_chapter}}</li>
-                      <li class="breadcrumb-item active" aria-current="page">{{sub.sub_chapter_name}}</li>
-                   </ol>
-                </nav>
-                <!-- <h3>Chapter - Section 1</h3> -->
-             </div>
-          </div>
-       </div>
-         {% for content in sub.hadithbookcontent_set.all %}
-            {% include 'frontend/snippet_hadith_content.html' with instance=content %}  
-
-         {% endfor %}
-       {% endfor %}
-       <!-- Hadith Sub Content END  -->
-
+<div class="reader-page hadith-reader" data-reader>
+  <div class="site-shell">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'quran_list_chapter' %}">Home</a><span aria-hidden="true">/</span><a href="{% url 'mishkat-al-masabih' %}">Mishkat al-Masabih</a>{% if hadith_sub_chapter %}<span aria-hidden="true">/</span><span aria-current="page">{{ hadith_sub_chapter.0.hadith_book_main_chapter.english_name }}</span>{% endif %}</nav>
+    <header class="reader-header"><p class="eyebrow">MISHKAT AL-MASABIH</p><h1>{% if hadith_sub_chapter %}{{ hadith_sub_chapter.0.hadith_book_main_chapter.english_name }}{% else %}Hadith collection{% endif %}</h1><p>Read in Roman Urdu, Hindi, or Arabic.</p></header>
+    {% include 'frontend/components/reader_toolbar.html' %}
+    <div class="hadith-sections">
+      {% for sub in hadith_sub_chapter %}
+        <section aria-labelledby="section-{{ sub.id }}"><h2 class="hadith-section-title" id="section-{{ sub.id }}">{{ sub.sub_chapter_name }}</h2>
+        {% for content in sub.hadithbookcontent_set.all %}{% include 'frontend/snippet_hadith_content.html' with entry=content %}{% empty %}<p>No Hadith content is available in this section yet.</p>{% endfor %}</section>
+      {% empty %}<div class="empty-state"><h2>This chapter is not available yet.</h2><p>Please choose another chapter from the collection.</p><a class="button button-secondary" href="{% url 'mishkat-al-masabih' %}">All Hadith chapters</a></div>{% endfor %}
     </div>
- </section>
-{% endblock content%}
-
-{% block javascripts %}
-<script>
-
-   function copyCodeV2(el,class_name) {
-console.log(class_name)
-//TRY 2  Working with classname and id
-  const selection = window.getSelection();
-  const range = document.createRange();
-  const element = document.getElementById(class_name);
-  console.log(element);
-  range.selectNodeContents(element);
-  selection.removeAllRanges();
-  selection.addRange(range);
-  const successful = document.execCommand('copy');
-   window.getSelection().removeAllRanges()
-
-
-
-
-//   const selection = window.getSelection();
-//   const range = document.createRange();
-//   const textToCopy = el.nextElementSibling;
-//   range.selectNodeContents(textToCopy);
-//   selection.removeAllRanges();
-//   selection.addRange(range);
-//   const successful = document.execCommand('copy');
-//   window.getSelection().removeAllRanges()
-
-
-  if (!el.parentElement.querySelector('.alert')) {
-    var alert = document.createElement('div');
-    alert.classList.add('alert', 'alert-success', 'position-absolute', 'top-0', 'border-0', 'text-white', 'w-25', 'end-0', 'start-0', 'mt-2', 'mx-auto', 'py-2');
-    alert.style.transform = 'translate3d(0px, 0px, 0px)'
-    alert.style.opacity = '0';
-    alert.style.transition = '.35s ease';
-    setTimeout(function() {
-      alert.style.transform = 'translate3d(0px, 20px, 0px)';
-      alert.style.setProperty("opacity", "1", "important");
-    }, 100);
-    alert.innerHTML = "Successfully copied!";
-    el.parentElement.appendChild(alert);
-    setTimeout(function() {
-      alert.style.transform = 'translate3d(0px, 0px, 0px)'
-      alert.style.setProperty("opacity", "0", "important");
-    }, 2000);
-    setTimeout(function() {
-      el.parentElement.querySelector('.alert').remove();
-    }, 2500);
-  }
-}
-
-</script>
-{% endblock javascripts %}
+    <div class="essay-bottom"><a class="text-link" href="{% url 'mishkat-al-masabih' %}">← All Hadith chapters</a></div>
+  </div>
+</div>
+{% endblock %}

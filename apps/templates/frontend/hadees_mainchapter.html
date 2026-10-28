@@ -1,78 +1,14 @@
 {% extends 'frontend/base.html' %}
-
-{% block title %} Mishkat al-Masabih {% endblock title %}
-
-<!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
+{% block title %}Mishkat al-Masabih · Hadith{% endblock %}
 {% block content %}
-
-   <section class="my-5 py-5">
-    <!-- <div class="container">
-       <div class="row">
-         <div class="row justify-content-center text-center my-sm-5">
-           <div class="col-lg-6">
-             <h2 class="text-dark mb-0">Huge collection of sections</h2>
-             <h2 class="text-primary text-gradient">Infinite combinations</h2>
-             <p class="lead">We have created multiple options for you to put together and customise into pixel perfect pages. </p>
-           </div>
-         </div>
-       </div>
-       </div> -->
-    <div class="container mt-sm-5 mt-3">
-       <!-- 1A Section -->
-       <div class="row">
-          <div class="col">
-             <div class="mb-4 ">
-                <nav aria-label="breadcrumb">
-                   <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Mishkat al-Masabih</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Chapter List</li>
-                   </ol>
-                </nav>
-                <!-- <h3>Chapter - Section 1</h3> -->
-             </div>
-          </div>
-       </div>
-       <!-- 1A Section 1A -->
-       <div class="card">
-          <div class="table-responsive">
-             <table class="table align-items-center mb-0" id="hadees-chapter-table">
-                <thead>
-                   <tr>
-                      <th class="text-uppercase text-gradient text-dark text-xxs font-weight-bolder ps-2"></th>
-                      <th class="text-uppercase text-gradient text-dark text-lg font-weight-bolder  ps-2">Name </th>
-                      <th class="text-uppercase text-gradient text-dark text-lg font-weight-bolder  ps-2">Arabic Name</th>
-                      <!-- <th class="text-uppercase text-gradient text-dark text-lg font-weight-bolder  ps-2">Completion </th> -->
-                   </tr>
-                </thead>
-                <tbody>
-                   {% for hadith in hadith_main_chapter_list %}
-                     
-                     <tr data-url="some_url1" onclick="window.location = '{{hadith.get_absolute_url}}'">
-                      <td>
-                         <p class="mb-0 text-lg  text-dark font-weight-bold text-center" >{{hadith.chapter_no}}</p>
-                      </td>
-                      <td>
-                         <p class="mb-0 text-lg  text-dark font-weight-bold" >{{hadith.english_name}}</p>
-                      </td>
-                      <td>
-                         <p class="mb-0 text-lg  text-dark font-weight-bold uthmani" ><span class="uthmani">{{hadith.arabic_name}}</span></p>
-                      </td>
-
-                   </tr>
-                   {% endfor %}
-                </tbody>
-             </table>
-          </div>
-       </div>
-    </div>
-    </div>
- </section>
-{% endblock content%}
-
-{% block javascripts %}
-<script>
-
-</script>
-{% endblock javascripts %}
+<div class="collection-page site-shell">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'quran_list_chapter' %}">Home</a><span aria-hidden="true">/</span><span aria-current="page">Hadith</span></nav>
+  <div class="collection-heading-row"><header class="collection-header"><p class="eyebrow">THE HADITH COLLECTION</p><h1>Wisdom to live by.</h1><p>Explore Mishkat al-Masabih. Read the teachings of the Prophet ﷺ in Roman Urdu, Hindi, and Arabic.</p><p class="arabic-subtitle" lang="ar" dir="rtl">مشكاة المصابيح</p></header><a class="text-link" href="{% url 'pdf_hadith_list' %}">{% include 'frontend/components/icon.html' with name='download' %} Hadith PDF library</a></div>
+  <p class="collection-count">{{ hadith_main_chapter_list|length }} chapters to explore</p>
+  <div class="hadith-chapter-grid">
+  {% for hadith in hadith_main_chapter_list %}
+    <a class="hadith-chapter-card" href="{{ hadith.get_absolute_url }}"><span class="chapter-number"><span>{{ hadith.chapter_no }}</span></span><div><h2>{{ hadith.english_name }}</h2><p lang="ar" dir="rtl">{{ hadith.arabic_name }}</p></div>{% include 'frontend/components/icon.html' with name='chevron' %}</a>
+  {% empty %}<div class="empty-state"><h2>No chapters are available yet.</h2><p>You can explore the Hadith PDF library in the meantime.</p></div>{% endfor %}
+  </div>
+</div>
+{% endblock %}
